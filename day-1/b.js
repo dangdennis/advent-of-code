@@ -5,20 +5,29 @@ const readline = require('readline');
 async function findRepeatedFrequency() {
   let found = false;
   let freq = 0;
-  let freqMap = { 0: false };
+  let freqMap = new Map();
 
-  const file = fs.createReadStream(path.join(__dirname, 'input.txt'));
-  const rl = readline.createInterface(file);
-
-  for await (const line of rl) {
-    freq += Number(line);
-    if (!freqMap[freq]) {
-      freqMap[freq] = false;
-    } else {
-      console.log(freq);
-      return freq;
+  try {
+    while (!found) {
+      const file = fs.createReadStream(path.join(__dirname, 'input.txt'));
+      const rl = readline.createInterface(file);
+      for await (const line of rl) {
+        freq += Number(line);
+        if (freqMap.get(freq) === undefined) {
+          freqMap.set(freq, false);
+        } else {
+          freqMap.set(freq, true);
+          found = true;
+          return freq;
+        }
+      }
+      rl.close();
     }
+  } catch (e) {
+    console.log('err: ', e);
   }
+
+  return null;
 }
 
 async function main() {
