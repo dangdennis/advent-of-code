@@ -2,62 +2,42 @@
 
 const fs = require('fs');
 const path = require('path');
-const readline = require('readline');
 
-async function calculateCheckSum() {
-  let nTwoLetters = 0;
-  let nThreeLetters = 0;
+function main() {
+  const file = fs.readFileSync(path.join(__dirname, 'input.txt'), 'utf-8');
+  const fileArr = file.split('\n').sort((a,b) => {
+    if (a < b) return 1;
+    if (a > b) return -1;
+    return 0;
+  });
 
-  try {
-    const file = fs.createReadStream(path.join(__dirname, 'input.txt'));
-    const rl = readline.createInterface(file);
+  const candidates = [];
 
-    for await (const line of rl) {
-      const letters = line.split('');
-      const letterMap = new Map();
+  for(let ptr1 = 0; ptr1 < fileArr.length; ptr1++) {
+    const str1 = fileArr[ptr1];
 
-      letters.forEach((letter) => {
-        if (!letterMap.has(letter)) {
-          letterMap.set(letter, 1);
-        } else {
-          const curr = letterMap.get(letter);
-          letterMap.set(letter, curr + 1);
-        }
-      });
-
-      const [nTwos, nThrees] = countChecks(letterMap);
-      nTwoLetters += nTwos;
-      nThreeLetters += nThrees;
-    }
-    rl.close();
-  } catch (e) {
-    console.log('err: ', e);
-  }
-
-  return nThreeLetters * nTwoLetters;
-}
-
-function countChecks(map) {
-  let hasThree = false;
-  let hasTwo = false;
-
-  for (let [_, count] of map) {
-    if (!hasThree && count === 3) {
-      hasThree = true;
-    }
-    if (!hasTwo && count === 2) {
-      hasTwo = true;
+    for(let ptr2 = 1; ptr2 < fileArr.length; ptr2++) {
+      const str2 = fileArr[ptr2];
+      if (countDiffs(str1, str2) === 1) {
+        candidates.push(str1);
+        candidates.push(str2);
+      }
     }
   }
 
-  if (hasThree && hasTwo) return [1, 1];
-  if (!hasThree && hasTwo) return [1, 0];
-  if (!hasTwo && hasThree) return [0, 1];
+  console.log(candidates)
 }
 
-async function main() {
-  const checksum = await calculateCheckSum();
-  console.log(`The checksum is ${checksum}`);
+function countDiffs(str1, str2) {
+  if (str1.length != str2.length) return 0; // Lazy edge case handling
+  
+  let diffs = 0;
+  for (let i = 0; i < str1.length; i++) {
+    if (str1[i] === str2[i]) diffs++;
+  }
+
+  return diffs;
 }
 
 main();
+
