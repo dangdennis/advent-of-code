@@ -1,0 +1,21 @@
+{
+  "name": "reasonml",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:js": "nodemon src/$FILE",
+    "start:re": "bsb -clean-world -make-world -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "bs-platform": "7.0.0-dev.2",
+    "nodemon": "^2.0.1"
+  },
+  "dependencies": {
+    "bs-node": "reasonml-community/bs-node"
+  }
+}

@@ -1,0 +1,1 @@
+{ "dirs" : [ "src" ] , "pkgs" : [ [ "bs-node" , "/Users/dennis/Desktop/dev/advent-of-code/2019/reasonml/node_modules/bs-node" ] , [ "bs-platform" , "/Users/dennis/Desktop/dev/advent-of-code/2019/reasonml/node_modules/bs-platform" ] ] , "generated" : [] }
