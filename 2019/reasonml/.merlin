@@ -6,6 +6,8 @@ FLG -nostdlib
 FLG -w -30-40+6+7+27+32..39+44+45+101
 S /Users/dennis/Desktop/dev/advent-of-code/2019/reasonml/node_modules/bs-node/lib/ocaml
 B /Users/dennis/Desktop/dev/advent-of-code/2019/reasonml/node_modules/bs-node/lib/ocaml
+S /Users/dennis/Desktop/dev/advent-of-code/2019/reasonml/node_modules/@glennsl/bs-jest/lib/ocaml
+B /Users/dennis/Desktop/dev/advent-of-code/2019/reasonml/node_modules/@glennsl/bs-jest/lib/ocaml
 S src
 B lib/bs/src
 ####BSB GENERATED: NO EDIT}

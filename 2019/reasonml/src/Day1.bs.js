@@ -2,25 +2,44 @@
 'use strict';
 
 var Utils = require("./Utils.bs.js");
-var Js_math = require("bs-platform/lib/js/js_math.js");
 var Belt_List = require("bs-platform/lib/js/belt_List.js");
 var Caml_format = require("bs-platform/lib/js/caml_format.js");
 
-var masses = Utils.readFileIntoList("Day1Input");
+var modules = Utils.readFileIntoList("Day1Input");
 
 function calcFuel(mass) {
-  return Js_math.floor(mass / 3) - 2 | 0;
+  return Math.floor(mass / 3) - 2;
 }
 
-var totalFuel = Belt_List.reduce(Belt_List.map(masses, (function (mass) {
+var totalFuelPart1 = Belt_List.reduce(Belt_List.map(modules, (function (mass) {
             return calcFuel(Caml_format.caml_float_of_string(mass.trim()));
           })), 0, (function (acc, next) {
-        return acc + next | 0;
+        return acc + next;
       }));
 
-console.log(totalFuel);
+console.log("total fuel for part 1 = ", totalFuelPart1);
 
-exports.masses = masses;
+function calcFuelRec(mass) {
+  var belowZero = mass < 9;
+  if (belowZero) {
+    return 0;
+  } else {
+    var fuelReq = calcFuel(mass);
+    return calcFuelRec(fuelReq) + fuelReq;
+  }
+}
+
+var totalFuelPart2 = Belt_List.reduce(Belt_List.map(modules, (function (mass) {
+            return calcFuelRec(Caml_format.caml_float_of_string(mass.trim()));
+          })), 0, (function (prim, prim$1) {
+        return prim + prim$1;
+      }));
+
+console.log("total fuel for part 2 = ", totalFuelPart2);
+
+exports.modules = modules;
 exports.calcFuel = calcFuel;
-exports.totalFuel = totalFuel;
-/* masses Not a pure module */
+exports.totalFuelPart1 = totalFuelPart1;
+exports.calcFuelRec = calcFuelRec;
+exports.totalFuelPart2 = totalFuelPart2;
+/* modules Not a pure module */

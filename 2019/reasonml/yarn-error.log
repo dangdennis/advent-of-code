@@ -1,5 +1,5 @@
 Arguments: 
-  /Users/dennis/.nvm/versions/node/v12.13.0/bin/node /usr/local/Cellar/yarn/1.19.1/libexec/bin/yarn.js exec src/Day1.bs.js
+  /Users/dennis/.nvm/versions/node/v12.13.0/bin/node /usr/local/Cellar/yarn/1.19.1/libexec/bin/yarn.js add -D@glennsl/bs-jest
 
 PATH: 
   /Users/dennis/.opam/default/bin:/Users/dennis/.nvm/versions/node/v12.13.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Library/Apple/bin:/usr/local/go/bin:/Users/dennis/.opam/default/bin:/Users/dennis/.nvm/versions/node/v12.13.0/bin
@@ -14,9 +14,16 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: spawn src/Day1.bs.js EACCES
-      at Process.ChildProcess._handle.onexit (internal/child_process.js:264:19)
-      at onErrorNT (internal/child_process.js:456:16)
+  Error: https://registry.yarnpkg.com/-j: Not found
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.19.1/libexec/lib/cli.js:66926:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/1.19.1/libexec/lib/cli.js:140564:22)
+      at Request.emit (events.js:210:5)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/1.19.1/libexec/lib/cli.js:141536:10)
+      at Request.emit (events.js:210:5)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.19.1/libexec/lib/cli.js:141458:12)
+      at Object.onceWrapper (events.js:299:28)
+      at IncomingMessage.emit (events.js:215:7)
+      at endReadableNT (_stream_readable.js:1183:12)
       at processTicksAndRejections (internal/process/task_queues.js:80:21)
 
 npm manifest: 
@@ -26,8 +33,8 @@ npm manifest:
     "description": "",
     "main": "index.js",
     "scripts": {
-      "exec": "nodemon",
-      "start": "bsb -clean-world -make-world -w",
+      "start:js": "nodemon src/$FILE",
+      "start:re": "bsb -clean-world -make-world -w",
       "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],

@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@glennsl/bs-jest": "^0.4.9",
     "bs-platform": "7.0.0-dev.2",
     "nodemon": "^2.0.1"
   },

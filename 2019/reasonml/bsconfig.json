@@ -4,9 +4,13 @@
     {
       "dir": "src",
       "subdirs": true
+    },
+    {
+      "dir": "__tests__",
+      "type": "dev"
     }
   ],
-  "bs-dependencies": ["bs-node"],
+  "bs-dependencies": ["bs-node", "@glennsl/bs-jest"],
   "reason": {
     "react-jsx": 3
   },
@@ -16,5 +20,5 @@
   },
   "suffix": ".bs.js",
   "bsc-flags": ["-bs-super-errors"],
-  "refmt": 3,
+  "refmt": 3
 }

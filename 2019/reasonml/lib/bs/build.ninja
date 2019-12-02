@@ -9,13 +9,14 @@ ppx_flags =
 g_dpkg_incls = 
 g_ns = 
 bsb_dir_group = 0
-g_lib_incls = -I src -I /Users/dennis/Desktop/dev/advent-of-code/2019/reasonml/node_modules/bs-node/lib/ocaml
+bsc_group_1_includes = -I __tests__
+g_lib_incls = -I src -I /Users/dennis/Desktop/dev/advent-of-code/2019/reasonml/node_modules/bs-node/lib/ocaml -I /Users/dennis/Desktop/dev/advent-of-code/2019/reasonml/node_modules/@glennsl/bs-jest/lib/ocaml
 rule build_ast_from_re
   command = $bsc  $warnings -color always -bs-jsx 3 $bsc_flags -o $out -bs-syntax-only -bs-binary-ast $in
   description = [34mBuilding[39m [2m${out}[22m
 build  src/Day1.reast : build_ast_from_re $src_root_dir/src/Day1.re
 rule build_deps
-  command = $bsdep -hash c4c691869bb33a00f8d233ff1e56750e $g_ns -g $bsb_dir_group $in
+  command = $bsdep -hash 4320dffc868c648b054e134df46943c7 $g_ns -g $bsb_dir_group $in
   restat = 1
   description = [34mBuilding[39m [2m${out}[22m
 build  src/Day1.d : build_deps src/Day1.reast
