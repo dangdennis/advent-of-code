@@ -1056,6 +1056,11 @@ duplexer3@^0.1.4:
   resolved "https://registry.yarnpkg.com/duplexer3/-/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"
   integrity sha1-7gHdHKwO08vH/b6jfcCo8c4ALOI=
 
+easy-tree@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/easy-tree/-/easy-tree-0.0.3.tgz#93a8c69b23d8011c2f34e6a88c7f7d391649978a"
+  integrity sha1-k6jGmyPYARwvNOaojH99ORZJl4o=
+
 ecc-jsbn@~0.1.1:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/ecc-jsbn/-/ecc-jsbn-0.1.2.tgz#3a83a904e54353287874c564b7549386849a98c9"

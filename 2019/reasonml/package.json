@@ -17,6 +17,7 @@
     "nodemon": "^2.0.1"
   },
   "dependencies": {
-    "bs-node": "reasonml-community/bs-node"
+    "bs-node": "reasonml-community/bs-node",
+    "easy-tree": "^0.0.3"
   }
 }

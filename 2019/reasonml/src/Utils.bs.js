@@ -4,10 +4,16 @@
 var Fs = require("fs");
 var Belt_List = require("bs-platform/lib/js/belt_List.js");
 
-function readFileIntoList(filename) {
-  var file = Fs.readFileSync("./src/" + (filename + ".txt"), "utf8");
-  return Belt_List.fromArray(file.split("\n"));
+function multiLineToList(str) {
+  return Belt_List.map(Belt_List.fromArray(str.trim().split("\n")), (function (str) {
+                return str.trim();
+              }));
 }
 
+function readFileIntoList(filename) {
+  return multiLineToList(Fs.readFileSync("./src/" + (filename + ".txt"), "utf8"));
+}
+
+exports.multiLineToList = multiLineToList;
 exports.readFileIntoList = readFileIntoList;
 /* fs Not a pure module */

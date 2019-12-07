@@ -1,6 +1,11 @@
 open Belt;
 
+let multiLineToList = str =>
+  Js.String.split("\n", Js.String.trim(str))
+  ->List.fromArray
+  ->List.map(str => Js.String.trim(str));
+
 let readFileIntoList = filename => {
   let file = Node.Fs.readFileSync("./src/" ++ filename ++ ".txt", `utf8);
-  Js.String.split("\n", file)->List.fromArray;
+  file->multiLineToList;
 };
