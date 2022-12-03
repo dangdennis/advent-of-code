@@ -32,13 +32,16 @@ let part2 lines : int =
             find sum cals ls)
   in
   let cals = find 0 [] lines |> List.sort (fun a b -> b - a) in
-  List.fold_right (fun cal acc -> cal + acc) (take 3 cals) 0
+  List.fold_left (fun cal acc -> cal + acc) 0 (take 3 cals)
 
 let run () =
-  let ic = In_channel.open_bin "bin/day1.txt" in
-  let data = In_channel.input_all ic in
-  let lines = String.split_on_char '\n' data in
+  let lines = Lib.extract_lines "bin/day1.txt" in
+  print_newline ();
+  print_endline "day 1";
   part1 lines |> print_int;
   print_newline ();
   part2 lines |> print_int;
-  print_newline ()
+  print_newline ();
+  ()
+
+let () = run ()
