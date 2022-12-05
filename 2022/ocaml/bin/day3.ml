@@ -32,32 +32,33 @@ let part2 (lines : string list) =
   let badge_groups = lines |> Base.List.chunks_of ~length:3 in
   badge_groups
   |> List.map (fun g ->
-         let first_rucksack = List.hd g in
-         let others = List.tl g in
-         let snd_rucksack = List.hd others in
-         let others = List.tl others in
-         let third_rucksack = List.hd others in
-
-         let fst = String.to_seq first_rucksack in
-
-         let shared_types =
-           fst
-           |> Seq.map (fun c ->
-                  if
-                    String.exists (fun c' -> c == c') snd_rucksack
-                    && String.exists (fun c' -> c == c') third_rucksack
-                  then Some c
-                  else None)
+         let badges =
+           match g with
+           | [] -> []
+           | _ :: [] -> []
+           | [ _; _ ] -> []
+           | [ fst; snd; third ] ->
+               String.to_seq fst
+               |> Seq.map (fun c ->
+                      if
+                        String.exists (fun c' -> c == c') snd
+                        && String.exists (fun c' -> c == c') third
+                      then Some c
+                      else None)
+               |> List.of_seq
+           | _ -> []
          in
+
          let badge =
-           Seq.fold_left
-             (fun sum x ->
-               match x with
-               | None -> sum
-               | Some h' ->
-                   let badge = char_to_priority h' in
-                   badge)
-             0 shared_types
+           badges
+           |> List.fold_left
+                (fun sum x ->
+                  match x with
+                  | None -> sum
+                  | Some h' ->
+                      let badge = char_to_priority h' in
+                      badge)
+                0
          in
 
          badge)
