@@ -1,23 +1,23 @@
 module Queue = CCFQueue
 module MarkersSet = Set.Make (Char)
 
-type signal = { queue : char CCFQueue.t; pos : int }
+type marker = { queue : char CCFQueue.t; pos : int }
 
-let part1 lines =
-  let first_line = List.hd lines in
-  let signal =
+let find_marker first_line n =
+  let queue_size = n in
+  let marker =
     first_line
     |> String.fold_left
          (fun { queue; pos } c ->
            let is_unique_marker =
-             MarkersSet.of_seq (Queue.to_seq queue) |> MarkersSet.cardinal == 4
+             MarkersSet.of_seq (Queue.to_seq queue)
+             |> MarkersSet.cardinal == queue_size
            in
            if is_unique_marker then { queue; pos }
            else
-             (* max queue size 4 *)
              let queue =
                let queue = queue |> Queue.cons c in
-               if Queue.size queue > 4 then
+               if Queue.size queue > queue_size then
                  match Queue.take_back queue with
                  | None -> queue
                  | Some (queue, _) -> queue
@@ -26,9 +26,17 @@ let part1 lines =
              { queue; pos = pos + 1 })
          { queue = Queue.empty; pos = 0 }
   in
-  signal.pos
+  marker
 
-let part2 _lines = 0
+let part1 lines =
+  let first_line = List.hd lines in
+  let marker = find_marker first_line 4 in
+  marker.pos
+
+let part2 lines =
+  let first_line = List.hd lines in
+  let marker = find_marker first_line 14 in
+  marker.pos
 
 let () =
   let lines = Lib.extract_lines "bin/day6.txt" in
