@@ -15,12 +15,13 @@ let part1 lines =
            if is_unique_marker then { queue; pos }
            else
              (* max queue size 4 *)
-             let queue = queue |> Queue.cons c in
-             let queue, _ =
+             let queue =
+               let queue = queue |> Queue.cons c in
                if Queue.size queue > 4 then
-                 let q, c = Queue.take_back_exn queue in
-                 (q, Some c)
-               else (queue, None)
+                 match Queue.take_back queue with
+                 | None -> queue
+                 | Some (queue, _) -> queue
+               else queue
              in
              { queue; pos = pos + 1 })
          { queue = Queue.empty; pos = 0 }
