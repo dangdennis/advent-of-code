@@ -3,39 +3,39 @@ type program =
       sumSignal: int
       register: int }
 
-type instruction =
+type cycle =
     | AddX of int
     | Noop
 
 let lines = System.IO.File.ReadLines "Day10.txt"
-
-let cycleTargets = [ 20; 60; 100; 140; 180; 220 ]
-
-let targetedSignalsStrength p =
-    if List.exists (fun c -> p.cycle = c) cycleTargets then
-        p.register * p.cycle + p.sumSignal
-    else
-        p.sumSignal
 
 let parseLine (l: string) =
     match l.Split(' ') with
     | [| "addx"; v |] -> [| Noop; AddX(int v) |]
     | _ -> [| Noop |]
 
-let makeInstructions lines =
+let makeCycles lines =
     lines
     |> Seq.map parseLine
-    |> Seq.fold (fun flat_instructions i -> Seq.concat [ flat_instructions; i ]) []
+    |> Seq.fold (fun cycles i -> Seq.concat [ cycles; i ]) []
+
 
 let part1 () =
+    let cycleTargets = [ 20; 60; 100; 140; 180; 220 ]
+
+    let targetedSignalsStrength p =
+        if List.exists (fun c -> p.cycle = c) cycleTargets then
+            p.register * p.cycle + p.sumSignal
+        else
+            p.sumSignal
 
     lines
-    |> makeInstructions
+    |> makeCycles
     |> Seq.fold
-        (fun p instr ->
+        (fun p cycle ->
             let newStrength = targetedSignalsStrength p
 
-            match instr with
+            match cycle with
             | AddX v ->
                 { p with
                     sumSignal = newStrength
@@ -59,41 +59,39 @@ type crt =
       cursor: coord }
 
 let part2 () =
-    let startSprite = { sprite.pos = [| 0; 1; 2 |] }
     let litPixel = "#"
     let darkPixel = "."
     let screenWidth = 40
     let screenHeight = 6
-
-    let blankScreen =
-        [| for i in 1..screenHeight -> [| for i in 1..screenWidth -> darkPixel |] |]
-
     let rowWrap = screenWidth - 1
 
-    let startRenderer =
-        { screen = blankScreen
+    let startScreen =
+        [| for i in 1..screenHeight -> [| for i in 1..screenWidth -> darkPixel |] |]
+
+    let startSprite = { sprite.pos = [| 0; 1; 2 |] }
+
+    let crt =
+        { screen = startScreen
           sprite = startSprite
           cursor = { x = 0; y = 0 } }
 
-    let updateCell row col el (matrix: array<array<string>>) = matrix[row][col] <- el
-
-    makeInstructions lines
+    makeCycles lines
     |> Seq.fold
         (fun
             { screen = screen
               sprite = sprite
               cursor = cursor }
-            instruction ->
+            cycle ->
 
             { screen =
                 if Array.exists (fun e -> e = cursor.x) sprite.pos then
-                    screen |> updateCell cursor.y cursor.x litPixel |> ignore
+                    screen[cursor.y][cursor.x] <- litPixel
                     screen
                 else
                     screen
 
               sprite =
-                  match instruction with
+                  match cycle with
                   | Noop -> sprite
                   | AddX v -> { pos = sprite.pos |> Array.map (fun p -> p + v) }
 
@@ -102,7 +100,7 @@ let part2 () =
                       { x = 0; y = cursor.y + 1 }
                   else
                       { cursor with x = cursor.x + 1 } })
-        startRenderer
+        crt
 
 
 let () =
@@ -111,6 +109,5 @@ let () =
 
     let p2 = part2 ()
     printfn "part 2:"
-
     for row in p2.screen do
         printf "%A\n" (Array.fold (fun str str2 -> str + " " + str2) "" row)
