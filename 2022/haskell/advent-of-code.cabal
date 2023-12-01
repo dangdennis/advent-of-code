@@ -1,0 +1,49 @@
+cabal-version: 3.8
+
+name:           advent-of-code
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/lsmor/template-advent-of-code#readme>
+homepage:       https://github.com/lsmor/template-advent-of-code#readme
+bug-reports:    https://github.com/lsmor/template-advent-of-code/issues
+author:         Luis Morillo Najarro
+copyright:      2021 Luis Morillo Najarro
+license:        BSD-3-Clause
+build-type:     Simple
+extra-source-files:
+    README.md
+
+source-repository head
+  type: git
+  location: https://github.com/lsmor/template-advent-of-code
+
+common deps
+  default-extensions:
+      TypeApplications
+      OverloadedStrings
+      LambdaCase
+      TupleSections
+      StrictData
+      ImportQualifiedPost
+  build-depends:
+      attoparsec
+    , base >=4.7 && <5
+    , bytestring
+    , containers
+    , matrix
+    , vector
+    , split
+    , search-algorithms
+    , mtl
+    , pointedlist
+    , text
+  other-modules:
+      Paths_advent_of_code
+  default-language: Haskell2010
+
+-- Do not touch after this line. aoc-hs will edit it
+executable day-1
+  import: deps
+  main-is: day-1.hs
+  hs-source-dirs:
+      solutions
+

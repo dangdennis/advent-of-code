@@ -1,0 +1,88 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "run day",
+            "type": "process",
+            "command": "./aoc-hs.sh",
+            "args": [
+                "run",
+                "-d",
+                "${input:Day}",
+                "-p",
+                "${input:Part}",
+                "--${input:InputFile}"
+            ],
+            "group": "none",
+            "problemMatcher": []
+        },
+        { 
+            "label": "build proyect",
+            "type":"process",
+            "command": "cabal",
+            "args": ["build", "all"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        { 
+            "label": "create new day template",
+            "type":"process",
+            "command": "./aoc-hs.sh",
+            "args": ["new", "-d", "${input:Day}"]
+        }
+    ],
+    "inputs": [
+        {
+            "id": "Day",
+            "type": "pickString",
+            "options": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12",
+                "13",
+                "14",
+                "11",
+                "12",
+                "13",
+                "14",
+                "15",
+                "16",
+                "17",
+                "18",
+                "19",
+                "20",
+                "21",
+                "22",
+                "23",
+                "24",
+                "25"
+            ],
+            "description": "which day you want to run?",
+        },
+        {
+            "id": "Part",
+            "type": "pickString",
+            "options": ["1","2"],
+            "description": "which part do you want to run?"
+        },
+        {
+            "id": "InputFile",
+            "type": "pickString",
+            "options": ["example","input"],
+            "description": "which input file do you want?"
+        }
+    ]
+}
