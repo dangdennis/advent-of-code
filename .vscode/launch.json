@@ -1,0 +1,28 @@
+{
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "sourceLanguages": [
+                "swift"
+            ],
+            "args": [],
+            "cwd": "${workspaceFolder:advent-of-code}/2022/swift",
+            "name": "Debug AOC (2022/swift)",
+            "program": "${workspaceFolder:advent-of-code}/2022/swift/.build/debug/AOC",
+            "preLaunchTask": "swift: Build Debug AOC (2022/swift)"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "sourceLanguages": [
+                "swift"
+            ],
+            "args": [],
+            "cwd": "${workspaceFolder:advent-of-code}/2022/swift",
+            "name": "Release AOC (2022/swift)",
+            "program": "${workspaceFolder:advent-of-code}/2022/swift/.build/release/AOC",
+            "preLaunchTask": "swift: Build Release AOC (2022/swift)"
+        }
+    ]
+}
